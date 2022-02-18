@@ -15,6 +15,7 @@
  */
 package org.springframework.samples.petclinic.visit;
 
+import org.springframework.samples.petclinic.owner.Owner;
 import org.springframework.samples.petclinic.pet.Pet;
 import org.springframework.samples.petclinic.pet.PetRepository;
 import org.springframework.samples.petclinic.vet.Vet;
@@ -87,4 +88,27 @@ public class VisitController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
+
+	@GetMapping("/owners/*/pets/{petId}/visits/{visitId}/edit")
+	public String initEditVisitForm(@PathVariable("visitId") int visitId, Map<String, Object> model) {
+
+		Visit visit = this.visits.findById(visitId);
+		model.put("visit", visit);
+
+		return "visits/createOrUpdateVisitForm";
+	}
+
+	@PostMapping("owners/{ownerId}/pets/{petId}/visits/{visitId}/edit")
+	public String processEditVisitForm(@Valid Visit visit, BindingResult result, @PathVariable("visitId") int visitId) {
+
+		if (result.hasErrors()) {
+			return "visits/createOrUpdateVisitForm";
+		} else {
+			visit.setId(visitId);
+			this.visits.save(visit);
+			return "redirect:/owners/{ownerId}";
+		}
+	}
+
+
 }
