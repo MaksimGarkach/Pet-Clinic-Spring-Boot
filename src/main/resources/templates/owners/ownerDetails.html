@@ -4,11 +4,11 @@
   th:replace="~{fragments/layout :: layout (~{::body},'owners')}">
 
   <body>
-  
-  
+
+
     <h2>Owner Information</h2>
-  
-  
+
+
     <table class="table table-striped" th:object="${owner}">
       <tr>
         <th>Name</th>
@@ -27,19 +27,19 @@
         <td th:text="*{telephone}"></td>
       </tr>
     </table>
-  
+
     <a th:href="@{{id}/edit(id=${owner.id})}" class="btn btn-primary">Edit
       Owner</a>
     <a th:href="@{{id}/pets/new(id=${owner.id})}" class="btn btn-primary">Add
       New Pet</a>
-  
+
     <br />
     <br />
     <br />
     <h2>Pets and Visits</h2>
-  
+
     <table class="table table-striped">
-  
+
       <tr th:each="pet : ${owner.pets}">
         <td valign="top">
           <dl class="dl-horizontal">
@@ -59,6 +59,7 @@
                 <th>Visit Date</th>
                 <th>Description</th>
                 <th>Veterinarians</th>
+                <th>Status</th>
                 <th>Edit Visit</th>
               </tr>
             </thead>
@@ -66,24 +67,19 @@
               <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
               <td th:text="${visit?.description}"></td>
               <td th:text="${visit.vetId?.firstName + ' ' + visit.vetId?.lastName}"></td>
-              <td><a
-                th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/edit(ownerId=${owner.id},petId=${pet.id},
-                visitId=${visit.id})}">Edit Visit</a></td>
+              <td th:if="${visit['status']}">Visit canceled</td>
+              <td th:unless="${visit['status']}">
+                <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/cancel(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Cancel visit</a></td>
+              <td th:unless="${visit['status']}">
+                <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/edit(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Edit Visit</a></td>
             </tr>
             <tr>
-              <td><a
-                th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Edit
-                  Pet</a></td>
-              <td><a
-                th:href="@{{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id},petId=${pet.id})}">Add
-                  Visit</a></td>
+              <td><a th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Edit Pet</a></td>
+              <td><a th:href="@{{ownerId}/pets/{petId}/visits/new(ownerId=${owner.id},petId=${pet.id})}">Add Visit</a></td>
             </tr>
           </table>
         </td>
       </tr>
-  
     </table>
-  
   </body>
-
 </html>

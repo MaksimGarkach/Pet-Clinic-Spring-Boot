@@ -116,4 +116,16 @@ public class VisitController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
+
+	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/cancel")
+	public String initCanceledVisitForm(@PathVariable("visitId") int visitId) {
+
+		Visit visit = this.visits.findById(visitId);
+		visit.setStatus(true);
+
+		visit.setId(visitId);
+		this.visits.save(visit);
+
+		return "redirect:/owners/{ownerId}";
+	}
 }
