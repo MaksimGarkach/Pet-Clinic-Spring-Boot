@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.visit;
 
 import org.springframework.samples.petclinic.owner.Owner;
+import org.springframework.samples.petclinic.owner.OwnerRepository;
 import org.springframework.samples.petclinic.pet.Pet;
 import org.springframework.samples.petclinic.pet.PetRepository;
 import org.springframework.samples.petclinic.vet.Vet;
@@ -39,10 +40,13 @@ public class VisitController {
 
 	private final VetRepository vets;
 
-	public VisitController(VisitRepository visits, PetRepository pets, VetRepository vets) {
+	private final OwnerRepository owners;
+
+	public VisitController(VisitRepository visits, PetRepository pets, VetRepository vets, OwnerRepository owners) {
 		this.visits = visits;
 		this.pets = pets;
 		this.vets = vets;
+		this.owners = owners;
 	}
 
 	@InitBinder
@@ -89,11 +93,14 @@ public class VisitController {
 		}
 	}
 
-	@GetMapping("/owners/*/pets/{petId}/visits/{visitId}/edit")
-	public String initEditVisitForm(@PathVariable("visitId") int visitId, Map<String, Object> model) {
+	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/edit")
+	public String initEditVisitForm(@PathVariable("visitId") int visitId, @PathVariable("ownerId") int ownerId, Map<String, Object> model) {
 
 		Visit visit = this.visits.findById(visitId);
 		model.put("visit", visit);
+
+		Owner owner = this.owners.findById(ownerId);
+		model.put("owner", owner);
 
 		return "visits/createOrUpdateVisitForm";
 	}
@@ -109,6 +116,4 @@ public class VisitController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
-
-
 }
