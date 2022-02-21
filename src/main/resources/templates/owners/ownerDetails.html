@@ -67,7 +67,8 @@
               <td th:text="${#temporals.format(visit.date, 'yyyy-MM-dd')}"></td>
               <td th:text="${visit?.description}"></td>
               <td th:text="${visit.vetId?.firstName + ' ' + visit.vetId?.lastName}"></td>
-              <td th:if="${visit['status']}">Visit canceled</td>
+              <td th:if="${visit['status']}">Visit canceled
+                <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/return(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Return</a></td>
               <td th:unless="${visit['status']}">
                 <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/cancel(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Cancel visit</a></td>
               <td th:unless="${visit['status']}">

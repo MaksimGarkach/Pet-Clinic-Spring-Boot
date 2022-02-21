@@ -122,8 +122,16 @@ public class VisitController {
 
 		Visit visit = this.visits.findById(visitId);
 		visit.setStatus(true);
+		this.visits.save(visit);
 
-		visit.setId(visitId);
+		return "redirect:/owners/{ownerId}";
+	}
+
+	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/return")
+	public String initReturnVisitForm(@PathVariable("visitId") int visitId) {
+
+		Visit visit = this.visits.findById(visitId);
+		visit.setStatus(false);
 		this.visits.save(visit);
 
 		return "redirect:/owners/{ownerId}";
