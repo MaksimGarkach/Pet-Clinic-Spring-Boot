@@ -73,6 +73,8 @@
                 <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/cancel(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Cancel visit</a></td>
               <td th:unless="${visit['status']}">
                 <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/edit(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Edit Visit</a></td>
+              <td th:if="${visit['status']}">
+                <a th:href="@{{ownerId}/pets/{petId}/visits/{visitId}/delete(ownerId=${owner.id},petId=${pet.id},visitId=${visit.id})}">Delete</a></td>
             </tr>
             <tr>
               <td><a th:href="@{{ownerId}/pets/{petId}/edit(ownerId=${owner.id},petId=${pet.id})}">Edit Pet</a></td>

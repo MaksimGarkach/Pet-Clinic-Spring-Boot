@@ -57,5 +57,7 @@ public interface VisitRepository extends Repository<Visit, Integer> {
 	@Transactional(readOnly = true)
 	Visit findById(@Param("id") Integer id);
 
+	@Transactional
+	void removeVisitById(Integer id);
 
 }

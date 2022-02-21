@@ -136,4 +136,12 @@ public class VisitController {
 
 		return "redirect:/owners/{ownerId}";
 	}
+
+	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
+	public String delete(@PathVariable("visitId") int visitId) {
+
+		this.visits.removeVisitById(visitId);
+
+		return "redirect:/owners/{ownerId}";
+	}
 }
