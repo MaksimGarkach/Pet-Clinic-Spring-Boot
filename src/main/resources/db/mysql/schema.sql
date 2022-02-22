@@ -54,5 +54,5 @@ CREATE TABLE IF NOT EXISTS visits (
   vet_id INT(4) UNSIGNED NOT NULL,
   status tinyint(1),
   FOREIGN KEY (pet_id) REFERENCES pets(id),
-  FOREIGN KEY (vet_id) REFERENCES pets(id)
+  FOREIGN KEY (vet_id) REFERENCES vets(id)
 ) engine=InnoDB;
