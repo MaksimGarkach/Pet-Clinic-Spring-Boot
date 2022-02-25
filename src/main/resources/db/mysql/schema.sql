@@ -56,3 +56,17 @@ CREATE TABLE IF NOT EXISTS visits (
   FOREIGN KEY (pet_id) REFERENCES pets(id),
   FOREIGN KEY (vet_id) REFERENCES vets(id)
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(30),
+  password VARCHAR(30),
+  active tinyint(1),
+  owner_id INT(4) UNSIGNED NOT NULL,
+  FOREIGN KEY (owner_id) REFERENCES owners(id)
+) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS user_role (
+  user_id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  roles VARCHAR(30)
+) engine=InnoDB;

@@ -10,6 +10,7 @@
             <div th:switch="${type}">
                 <input th:case="'text'" class="form-control" type="text" th:field="*{__${name}__}" />
                 <input th:case="'date'" class="form-control" type="date" th:field="*{__${name}__}"/>
+                <input th:case="'password'" class="form-control" type="password" th:field="*{__${name}__}"/>
             </div>
           <span th:if="${valid}"
             class="fa fa-ok form-control-feedback"

@@ -45,7 +45,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 class OwnerController {
 
-	private static final String VIEWS_OWNER_CREATE_OR_UPDATE_FORM = "owners/createOrUpdateOwnerForm";
+	private static final String VIEWS_OWNER_UPDATE_FORM = "owners/updateOwnerForm";
 
 	private final OwnerRepository owners;
 
@@ -59,24 +59,6 @@ class OwnerController {
 	@InitBinder
 	public void setAllowedFields(WebDataBinder dataBinder) {
 		dataBinder.setDisallowedFields("id");
-	}
-
-	@GetMapping("/owners/new")
-	public String initCreationForm(Map<String, Object> model) {
-		Owner owner = new Owner();
-		model.put("owner", owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-	}
-
-	@PostMapping("/owners/new")
-	public String processCreationForm(@Valid Owner owner, BindingResult result) {
-		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-			this.owners.save(owner);
-			return "redirect:/owners/" + owner.getId();
-		}
 	}
 
 	@GetMapping("/owners/find")
@@ -136,14 +118,14 @@ class OwnerController {
 	public String initUpdateOwnerForm(@PathVariable("ownerId") int ownerId, Model model) {
 		Owner owner = this.owners.findById(ownerId);
 		model.addAttribute(owner);
-		return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+		return VIEWS_OWNER_UPDATE_FORM;
 	}
 
 	@PostMapping("/owners/{ownerId}/edit")
 	public String processUpdateOwnerForm(@Valid Owner owner, BindingResult result,
 			@PathVariable("ownerId") int ownerId) {
 		if (result.hasErrors()) {
-			return VIEWS_OWNER_CREATE_OR_UPDATE_FORM;
+			return VIEWS_OWNER_UPDATE_FORM;
 		}
 		else {
 			owner.setId(ownerId);

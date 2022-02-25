@@ -51,3 +51,25 @@ INSERT IGNORE INTO visits VALUES (1, 7, '2010-03-04', 'rabies shot', 1,1);
 INSERT IGNORE INTO visits VALUES (2, 8, '2011-03-04', 'rabies shot', 2,0);
 INSERT IGNORE INTO visits VALUES (3, 8, '2009-06-04', 'neutered', 3,1);
 INSERT IGNORE INTO visits VALUES (4, 7, '2008-09-04', 'spayed', 4,0);
+
+INSERT IGNORE INTO users VALUES (1, 'George', 'Franklin', 1, 1);
+INSERT IGNORE INTO users VALUES (2, 'Betty', 'Davis', 1, 2);
+INSERT IGNORE INTO users VALUES (3, 'Eduardo', 'Rodriquez', 1, 3);
+INSERT IGNORE INTO users VALUES (4, 'Harold', 'Davis', 1, 4);
+INSERT IGNORE INTO users VALUES (5, 'Peter', 'McTavish', 1, 5);
+INSERT IGNORE INTO users VALUES (6, 'Jean', 'Coleman', 1, 6);
+INSERT IGNORE INTO users VALUES (7, 'Jeff', 'Black', 1, 7);
+INSERT IGNORE INTO users VALUES (8, 'Maria', 'Escobito', 1, 8);
+INSERT IGNORE INTO users VALUES (9, 'David', 'Schroeder', 1, 9);
+INSERT IGNORE INTO users VALUES (10, 'Carlos', 'Estaban', 1, 10);
+
+INSERT IGNORE INTO user_role VALUES (1, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (2, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (3, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (4, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (5, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (6, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (7, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (8, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (9, 'OWNER');
+INSERT IGNORE INTO user_role VALUES (10, 'OWNER');
