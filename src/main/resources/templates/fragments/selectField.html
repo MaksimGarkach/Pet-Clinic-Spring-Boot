@@ -21,6 +21,10 @@
               <option th:each="item : ${items}" th:value="${item.id}"
                       th:text="${item.getName}"></option>
             </select>
+            <select th:case="'Specialty'" th:field="*{__${name}__}">
+              <option th:each="item : ${items}" th:value="${item.id}"
+                      th:text="${item.getName}"></option>
+            </select>
           <span th:if="${valid}"
             class="fa fa-ok form-control-feedback"
             aria-hidden="true"></span>
