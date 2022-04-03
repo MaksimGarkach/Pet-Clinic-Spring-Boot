@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.registration;
 
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.owner.Owner;
+import org.springframework.samples.petclinic.vet.Vet;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -28,6 +29,10 @@ public class User extends BaseEntity implements UserDetails {
 	@OneToOne
 	@JoinColumn(name = "owner_id")
 	private Owner ownerId;
+
+	@OneToOne
+	@JoinColumn(name = "vet_id")
+	private Vet vetId;
 
 	@ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
 	@CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
@@ -98,4 +103,13 @@ public class User extends BaseEntity implements UserDetails {
 	public void setOwnerId(Owner ownerId) {
 		this.ownerId = ownerId;
 	}
+
+	public Vet getVetId() {
+		return vetId;
+	}
+
+	public void setVetId(Vet vetId) {
+		this.vetId = vetId;
+	}
+
 }

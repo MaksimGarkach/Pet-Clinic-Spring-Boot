@@ -24,8 +24,8 @@ public class OwnerRegistrationController {
 		this.userRepo = userRepo;
 	}
 
-	@GetMapping("/registration")
-	public String registration(Map<String, Object> model) {
+	@GetMapping("/registrationOwner")
+	public String registrationOwner(Map<String, Object> model) {
 
 		Owner owner = new Owner();
 		model.put("owner", owner);
@@ -35,7 +35,7 @@ public class OwnerRegistrationController {
 		return "registration/ownerRegistrationForm";
 	}
 
-	@PostMapping("/registration")
+	@PostMapping("/registrationOwner")
 	public String addUser(User user, Map<String, Object> model, @Valid Owner owner, BindingResult result) {
 		User userFromDb = userRepo.findByUsername(user.getUsername());
 

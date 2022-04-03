@@ -62,8 +62,10 @@ CREATE TABLE IF NOT EXISTS users (
   username VARCHAR(30),
   password VARCHAR(30),
   active tinyint(1),
-  owner_id INT(4) UNSIGNED NOT NULL,
-  FOREIGN KEY (owner_id) REFERENCES owners(id)
+  owner_id INT(4) UNSIGNED,
+  vet_id INT(4) UNSIGNED,
+  FOREIGN KEY (owner_id) REFERENCES owners(id),
+  FOREIGN KEY (vet_id) REFERENCES vets(id)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS user_role (
