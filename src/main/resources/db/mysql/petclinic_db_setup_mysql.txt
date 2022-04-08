@@ -1,12 +1,6 @@
 ================================================================================
-===        Spring PetClinic sample application - MySQL Configuration         ===
+===        Spring Pet Clinic sample application - MySQL Configuration         ===
 ================================================================================
-
-@author Sam Brannen
-@author Costin Leau
-@author Dave Syer
-
---------------------------------------------------------------------------------
 
 1) Download and install the MySQL database (e.g., MySQL Community Server 5.1.x),
    which can be found here: https://dev.mysql.com/downloads/. Or run the
