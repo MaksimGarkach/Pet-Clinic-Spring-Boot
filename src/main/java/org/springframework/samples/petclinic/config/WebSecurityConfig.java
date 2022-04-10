@@ -15,14 +15,19 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//	private final UserService userService;
-//
-//	public WebSecurityConfig(UserService userService) {
-//		this.userService = userService;
-//	}
+	private final UserService userService;
+
+	private final CustomSuccessHandler customSuccessHandler;
+
+	public WebSecurityConfig(UserService userService, CustomSuccessHandler customSuccessHandler) {
+		this.userService = userService;
+		this.customSuccessHandler = customSuccessHandler;
+	}
 
 	@Autowired
-	private UserService userService;
+	public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+		auth.userDetailsService(userService);
+	}
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
@@ -36,8 +41,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.authenticated()
 			.and()
 				.formLogin()
-				.loginPage("/login")
-				.defaultSuccessUrl("/")
+				.loginPage("/login").successHandler(customSuccessHandler)
+				.usernameParameter("username").passwordParameter("password")
 				.permitAll()
 			.and()
 				.logout()
