@@ -21,6 +21,7 @@ import org.springframework.samples.petclinic.pet.Pet;
 import org.springframework.samples.petclinic.pet.PetRepository;
 import org.springframework.samples.petclinic.vet.Vet;
 import org.springframework.samples.petclinic.vet.VetRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
@@ -137,6 +138,7 @@ public class VisitController {
 		return "redirect:/owners/{ownerId}";
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/owners/{ownerId}/pets/{petId}/visits/{visitId}/delete")
 	public String delete(@PathVariable("visitId") int visitId) {
 

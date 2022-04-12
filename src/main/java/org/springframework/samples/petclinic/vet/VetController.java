@@ -18,6 +18,9 @@ package org.springframework.samples.petclinic.vet;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.samples.petclinic.registration.User;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -78,23 +81,15 @@ class VetController {
 		return mav;
 	}
 
-	@GetMapping("/vets/new")
-	public String initCreationForm(ModelMap model) {
-		Vet vet = new Vet();
-		model.put("vet", vet);
-		return "vets/createOrUpdateVetForm";
+	@GetMapping("/vets/account")
+	public ModelAndView personalAccountOwner(@AuthenticationPrincipal User user) {
+		ModelAndView mav = new ModelAndView("vets/vetAccount");
+		Vet vet = this.vets.findById(user.getVetId().getId());
+		mav.addObject(vet);
+		return mav;
 	}
 
-	@PostMapping("/vets/new")
-	public String processCreationForm(@Valid Vet vet, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-			return "vets/createOrUpdateVetForm";
-		} else {
-			this.vets.save(vet);
-			return "vets/vetList";
-		}
-	}
-
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('VET')")
 	@GetMapping("/vets/{vetId}/edit")
 	public String initUpdateForm(@PathVariable("vetId") int vetId, ModelMap model) {
 		Vet vet = this.vets.findById(vetId);
@@ -102,6 +97,7 @@ class VetController {
 		return "vets/createOrUpdateVetForm";
 	}
 
+	@PreAuthorize("hasAuthority('ADMIN') or hasAuthority('VET')")
 	@PostMapping("/vets/{vetId}/edit")
 	public String processUpdateForm(@Valid Vet vet, @PathVariable("vetId") int vetId, BindingResult result, ModelMap model) {
 		if (result.hasErrors()) {

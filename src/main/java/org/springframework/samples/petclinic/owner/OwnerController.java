@@ -15,26 +15,23 @@
  */
 package org.springframework.samples.petclinic.owner;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.samples.petclinic.pet.Pet;
+import org.springframework.samples.petclinic.registration.User;
 import org.springframework.samples.petclinic.visit.VisitRepository;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 class OwnerController {
@@ -127,14 +124,8 @@ class OwnerController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
-
-	/**
-	 * Custom handler for displaying an owner.
-	 * @param ownerId the ID of the owner to display
-	 * @return a ModelMap with the model attributes for the view
-	 */
 	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId ) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		Owner owner = this.owners.findById(ownerId);
 		for (Pet pet : owner.getPets()) {
@@ -144,4 +135,15 @@ class OwnerController {
 		return mav;
 	}
 
+	@GetMapping("/owners/account")
+	public ModelAndView personalAccountOwner(@AuthenticationPrincipal User user) {
+
+		ModelAndView mav = new ModelAndView("owners/ownerAccount");
+		Owner owner = this.owners.findById(user.getOwnerId().getId());
+		for (Pet pet : owner.getPets()) {
+			pet.setVisitsInternal(visits.findByPetId(pet.getId()));
+		}
+		mav.addObject(owner);
+		return mav;
+	}
 }

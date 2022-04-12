@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'home')}">
+<html xmlns:th="https://www.thymeleaf.org" th:replace="~{fragments/layout :: layout (~{::body},'login')}">
 
 <body>
 
@@ -20,11 +20,6 @@
   </div>
   <input class="btn btn-primary" type="submit" value="Sign In"/>
 </form>
-
-<div>
-  <a class="btn btn-primary" th:href="@{/registration}">Registration</a>
-</div>
-
 
 </body>
 
